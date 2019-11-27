@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <style>
+      #contact-form-element {
+        display: flex;
+        flex-direction: column;
+      }
+      #contact-form-status {
+        text-align: center;
+      }
+      form#contact-form-element input#phone {
+        display: none !important;
+      }
+
+    </style>
+
+    <noscript>
+      <p>
+        Please enable JavaScript.
+      </p>
+    </noscript>
+
+      <section class="contact-form">
+        <form id="contact-form-element" action="/v1/send" method="post">
+          <input type="text" id="name" name="name" placeholder="name" maxlength="90" required>
+          <input type="email" id="email" name="email" placeholder="email" maxlength="90" required>
+          <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="phone" maxlength="10" value="0000000000" required>
+          <textarea id="text" name="text" rows="8" maxlength="1024" required></textarea>
+          <span id="contact-form-status"></span>
+          <button type="submit" id="submit" name="submit" disabled="true">Submit</button>
+        </form>
+      </section>
+
+    <script>
+      (function() {
+        var form = document.getElementById('contact-form-element');
+        var statusSpan = document.getElementById('contact-form-status');
+
+        window.addEventListener('load',function() { form.elements.submit.disabled = false } );
+
+        var validatePhone = function(dataObj, phoneNumberStr) {
+          if (phoneNumberStr==="0000000000") { return };
+          dataObj.phone = phoneNumberStr;
+        }
+
+        form.addEventListener('submit', function(e) {
+
+          e.preventDefault();
+          var data = {
+            name: e.target.elements.name.value,
+            email:e.target.elements.email.value,
+            text: e.target.elements.text.value
+          };
+
+          validatePhone(data, e.target.elements.phone.value);
+
+          var req = new XMLHttpRequest();
+          var url = form.action;
+          req.open(form.method.toUpperCase(), url, true);
+          req.setRequestHeader('content-type', 'application/json');
+
+          req.onreadystatechange = function() {
+            if (req.readyState === 4) {
+              switch (req.status) {
+                case 200:
+                  statusSpan.innerText = "Message sent. Thanks!";
+                  break;
+                case 403:
+                  statusSpan.innerText = "Terribly sorry, your message was flagged as spam.";
+                  break;
+                case 429:
+                  const mins = Math.round((parseInt(req.getResponseHeader('X-RateLimit-Reset')) - (Date.now()/1000))/60 );
+                  statusSpan.innerText = "Sorry, too many messages from this IP. Try again in " + mins + " minutes.";
+                  break;
+                case 500:
+                  statusSpan.innerText = "Internal Server Error. Please try again later.";
+                  break;
+                default:
+                  statusSpan.innerText = "Error: Try again later or contact site operator.";
+                  break;
+              }
+              form.reset();
+            }
+          };
+          req.send(JSON.stringify(data));
+        });
+      })();
+    </script>
+  </body>
+</html>

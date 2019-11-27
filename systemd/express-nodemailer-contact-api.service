@@ -1,0 +1,22 @@
+[Unit]
+Description=Express Nodemailer Contact Form REST API
+Requires=network-online.target nginx.service
+After=syslog.target network-online.target
+
+[Service]
+ExecStart=/usr/bin/node /opt/express-nodemailer-contact-api/server.js
+# Required on some systems
+WorkingDirectory=/opt/express-nodemailer-contact-api
+Restart=always
+ # Restart service after 10 seconds if node service crashes
+ RestartSec=10
+ # Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=express-nodemailer-contact-api
+User=ubuntu
+Group=ubuntu
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
