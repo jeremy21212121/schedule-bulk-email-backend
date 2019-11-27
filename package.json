@@ -1,26 +1,25 @@
 {
-    "name": "express-nodemailer-contact-form",
+    "name": "schedule-bulk-email-backend",
     "version": "0.0.1",
-    "description": "Production-ready contact form backend with express and nodemailer",
+    "description": "Schedule and send bulk emails",
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/jeremy21212121/express-nodemailer-contact-form.git"
+        "url": "git+https://github.com/jeremy21212121/schedule-bulk-email-backend.git"
     },
     "author": "Jeremy Poole",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/jeremy21212121/express-nodemailer-contact-form/issues"
+        "url": "https://github.com/jeremy21212121/schedule-bulk-email-backend/issues"
     },
-    "homepage": "https://github.com/jeremy21212121/express-nodemailer-contact-form#readme",
+    "homepage": "https://github.com/jeremy21212121/schedule-bulk-email-backend#readme",
     "dependencies": {
         "body-parser": "^1.18.3",
         "cors": "^2.8.5",
         "express": "^4.16.3",
-        "express-rate-limit": "^3.1.1",
         "nodemailer": "^4.6.8"
     }
 }
