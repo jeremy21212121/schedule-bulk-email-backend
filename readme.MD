@@ -1,21 +1,17 @@
-# Bulk email backend server
+# Low volume bulk email API made with Nodemailer and Express
 
-handles scheduling of batch email campaigns. Takes the email, an array of recipients and the send time.
+Handles scheduling of batch email campaigns. Takes the email, an array of recipients and the send time.
 
-supports cancelling of scheduled campaigns. uses nodemailer for SMPTP support.
+Supports cancelling of scheduled campaigns. Uses nodemailer for SMTP support.
 
-currently supports scheduling up to 24 days in advance with no persistence across server reboots.
+MVP supports scheduling up to 24 days in advance with no persistence across server restarts.
 
-the `/send` endpoint expects JSON in the following format:
+The `/send` endpoint expects JSON in the following format:
 
 ```
 {
 
-# arbitrary boolean flag for no apparent reason
-sendMails: true,
-
-# unix timestamp for send time
-unixTime: 1574657132852,
+unixTime: 1574657132852, // unix timestamp for send time
 
 subject: "Subject of email",
 
@@ -28,3 +24,16 @@ txtEmail: "hi again"
 }
 ```
 
+## run
+
+```
+npm run start
+```
+
+## test
+
+```
+npm run test
+```
+
+Currently just tests creating, listing and removing campaigns. Make sure to start the server before running the tests.
