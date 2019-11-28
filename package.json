@@ -4,7 +4,7 @@
     "description": "Schedule and send bulk emails",
     "main": "server.js",
     "scripts": {
-        "test": "./tests/integration.sh"
+        "test": "bash ./tests/integration.sh"
     },
     "repository": {
         "type": "git",

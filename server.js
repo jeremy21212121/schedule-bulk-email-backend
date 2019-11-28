@@ -6,6 +6,8 @@ const config = require('./config.js');
 const router = require('./lib/router.js');
 
 const errorHandler = require('./lib/errorHandler.js');
+const db = require('./lib/db.js'); // improvised persistance mechanism
+db.init();
 
 const app = express();
 app.enable('trust proxy'); //for proxying by eg. nginx in prod
