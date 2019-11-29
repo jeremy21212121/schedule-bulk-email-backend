@@ -4,7 +4,7 @@ Handles scheduling of batch email campaigns. Takes the email, an array of recipi
 
 Supports cancelling of scheduled campaigns. Uses nodemailer for SMTP support.
 
-MVP supports scheduling up to 24 days in advance with no persistence across server restarts.
+MVP supports scheduling up to 24 days in advance (max setTimeout duration). Pending campaigns are re-scheduled on server restart.
 
 The `/send` endpoint expects JSON in the following format:
 
